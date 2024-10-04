@@ -23,7 +23,7 @@ let maskedWord = ''
 const newGame = () => {
     tryCount = 0 // Nollaa yrityskerrat
     tryCountElement.textContent = tryCount
-    const random = Math.floor(Math.random() * 10) +1
+    const random = Math.floor(Math.random() * words.length) // Korjattu konsolissa ilmennyt bugi
     randomizedWord = words[random]
     maskedWord = "*".repeat(randomizedWord.length)
     console.log(randomizedWord)
@@ -56,6 +56,10 @@ input.addEventListener('keypress',(e) => {
         e.preventDefault() // Prevent form submission.
 
         const guess = input.value
+        
+        tryCount++  //nämä piti siirtää tähän väliin että arvaukset muuttuvat oikein arvoon 0 oikean arvauksen jälkeen.
+        tryCountElement.textContent = tryCount
+
         if (guess.toLowerCase() === randomizedWord.toLowerCase()) {
             win()
         } else if (guess.length === 1) {
@@ -67,8 +71,5 @@ input.addEventListener('keypress',(e) => {
             alert("You guessed wrong!")
         }
         input.value=''
-
-        tryCount++
-        tryCountElement.textContent = tryCount
     }
 })
